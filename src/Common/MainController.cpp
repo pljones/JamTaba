@@ -273,6 +273,7 @@ uint MainController::getFramesPerInterval() const
 
 void MainController::updateBpi(int newBpi)
 {
+    qCDebug(jtCore) << "MainController::updateBpi " << newBpi;
     if (settings.isSaveMultiTrackActivated()) {
         for (Recorder::JamRecorder *jamRecorder : jamRecorders) {
             jamRecorder->setBpi(newBpi);
@@ -282,6 +283,7 @@ void MainController::updateBpi(int newBpi)
 
 void MainController::updateBpm(int newBpm)
 {
+    qCDebug(jtCore) << "MainController::updateBpm " << newBpm;
     if (settings.isSaveMultiTrackActivated()) {
         for (Recorder::JamRecorder *jamRecorder : jamRecorders) {
             jamRecorder->setBpm(newBpm);
@@ -293,6 +295,7 @@ void MainController::updateBpm(int newBpm)
             inputTrack->getLooper()->stop(); // looper is stopped when BPM is changed because the recorded material will be out of sync
         }
     }
+    qCDebug(jtCore) << "MainController::updateBpm ...done";
 }
 
 void MainController::enqueueAudioDataToUpload(const QByteArray &encodedData, quint8 channelIndex, bool isFirstPart)
@@ -567,9 +570,9 @@ void MainController::setBuiltInMetronome(const QString &metronomeAlias)
     recreateMetronome();
 }
 
-void MainController::setCustomMetronome(const QString &primaryBeatFile, const QString &secondaryBeatFile)
+void MainController::setCustomMetronome(const QString &primaryBeatFile, const QString &offBeatFile, const QString &accentBeatFile)
 {
-    settings.setCustomMetronome(primaryBeatFile, secondaryBeatFile);
+    settings.setCustomMetronome(primaryBeatFile, offBeatFile, accentBeatFile);
     recreateMetronome();
 }
 
